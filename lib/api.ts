@@ -33,9 +33,11 @@ export const fetchNotes = async ({
   page,
   perPage,
   search = '',
-}: FetchNotesParams): Promise<FetchNotesResponse> => {
+  tag,
+}: FetchNotesParams & { tag?: string }): Promise<FetchNotesResponse> => {
   const params: Record<string, string | number> = { page, perPage };
   if (search) params.search = search;
+  if (tag) params.tag = tag;
 
   const response = await axiosInstance.get<FetchNotesResponse>('', { params });
   return response.data;

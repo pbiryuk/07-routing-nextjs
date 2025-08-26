@@ -50,7 +50,12 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       aria-modal="true"
       onClick={onBackdropClick}
     >
-      <div className={css.modal}>{children}</div>
+      <div className={css.modal}>
+        <button className={css.closeBtn} onClick={onClose} aria-label="Close">
+          ×
+        </button>
+        {children}
+      </div>
     </div>,
     modalRoot
   );
