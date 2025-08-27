@@ -8,9 +8,10 @@ import css from './NoteList.module.css';
 
 interface NoteListProps {
   notes: Note[];
+  onNoteClick?: (id: string) => void;
 }
 
-export default function NoteList({ notes }: NoteListProps) {
+export default function NoteList({ notes, onNoteClick }: NoteListProps) {
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation<Note, Error, string>({
@@ -26,8 +27,12 @@ export default function NoteList({ notes }: NoteListProps) {
     <ul className={css.list}>
       {notes.map(({ id, title, content, tag }) => (
         <li key={id} className={css.listItem}>
-          <h2 className={css.title}>{title}</h2>
-          <p className={css.content}>{content}</p>
+          <h2 className={css.title} onClick={() => onNoteClick?.(id)}>
+            {title}
+          </h2>
+          <p className={css.content} onClick={() => onNoteClick?.(id)}>
+            {content}
+          </p>
           <div className={css.footer}>
             <span className={css.tag}>{tag}</span>
             <div style={{ display: 'flex', gap: '8px' }}>

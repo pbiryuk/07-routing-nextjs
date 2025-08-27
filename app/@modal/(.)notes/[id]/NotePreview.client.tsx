@@ -8,7 +8,11 @@ import Loader from '@/components/Loading/Loading';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 import css from './NotePreview.module.css';
 
-export default function NotePreview({ id }: { id: string }) {
+interface NotePreviewProps {
+  id: string;
+}
+
+export default function NotePreview({ id }: NotePreviewProps) {
   const router = useRouter();
 
   const {
@@ -19,6 +23,7 @@ export default function NotePreview({ id }: { id: string }) {
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     staleTime: 1000 * 60 * 5,
+    refetchOnMount: false, // не робити повторний запит при відкритті
   });
 
   const handleClose = () => router.back();
@@ -35,7 +40,8 @@ export default function NotePreview({ id }: { id: string }) {
             <span className={css.tag}>{note.tag}</span>
           </div>
           <div className={css.content}>{note.content}</div>
-          <div className={css.date}>{note.updatedAt}</div>
+          <div className={css.date}>{note.createdAt}</div>{' '}
+          {/* використати createdAt */}
         </div>
       )}
     </Modal>

@@ -23,7 +23,6 @@ import css from './NotesPage.module.css';
 interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
-  totalNotes: number;
 }
 
 interface NotesClientProps {
@@ -99,7 +98,10 @@ export default function NotesClient({
       {isError && (
         <ErrorMessage message={error?.message || 'Error loading notes'} />
       )}
-      {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
+      {data && data.notes.length > 0 && (
+        <NoteList notes={data.notes} onNoteClick={handleNoteClick} />
+      )}
+
       {data && data.notes.length === 0 && <p>No notes found.</p>}
 
       {isModalOpen && (

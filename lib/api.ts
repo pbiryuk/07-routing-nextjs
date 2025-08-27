@@ -15,12 +15,12 @@ export interface FetchNotesParams {
   page: number;
   perPage: number;
   search?: string;
+  tag?: NoteTag | string;
 }
 
 export interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
-  totalNotes: number;
 }
 
 export interface CreateNoteParams {
@@ -34,7 +34,7 @@ export const fetchNotes = async ({
   perPage,
   search = '',
   tag,
-}: FetchNotesParams & { tag?: string }): Promise<FetchNotesResponse> => {
+}: FetchNotesParams): Promise<FetchNotesResponse> => {
   const params: Record<string, string | number> = { page, perPage };
   if (search) params.search = search;
   if (tag) params.tag = tag;
